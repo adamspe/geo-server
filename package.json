@@ -1,0 +1,30 @@
+{
+  "name": "app-base",
+  "version": "1.0.0",
+  "description": "",
+  "author": "adamspe@gmail.com",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node --preserve-symlinks server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamspe/app-base.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adamspe/app-base/issues"
+  },
+  "homepage": "https://github.com/adamspe/app-base#readme",
+  "dependencies": {
+    "app-container": "github:adamspe/app-container",
+    "app-container-login": "github:adamspe/app-container-login",
+    "connect-flash": "^0.1.1",
+    "jade": "^1.11.0",
+    "user-resource-container": "github:adamspe/user-resource-container"
+  },
+  "devDependencies": {
+    "minimist": "^1.2.0"
+  }
+}

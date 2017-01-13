@@ -1,0 +1,13 @@
+// variables
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+@import '../../node_modules/font-awesome/scss/font-awesome.scss';
+
+.navbar {
+    // deprecated vendor prefix mixin
+    @include box-shadow(0px 5px 5px rgba(#aaa,0.5));
+}
+body {
+    padding-top: 75px;
+}
+#notification-area {
+}

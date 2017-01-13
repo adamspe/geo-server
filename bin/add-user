@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+var argv = require('minimist')(process.argv.slice(2)),
+    AppContainer = require('app-container');
+
+if(!argv.email || !argv.pass || !argv.fname || !argv.sname) {
+    console.error('add-user --email joe@nowhere.net --pass secret --fname Joe --sname Admin [--admin]');
+    process.exit(1);
+}
+
+function checkErr(err) {
+    if(err) {
+        console.error(err);
+        process.exit(1);
+    }
+}
+
+AppContainer.db({},function(err){
+    checkErr(err);
+    var User = AppContainer.User,
+        admin = new User({
+            email: argv.email,
+            fname: argv.fname,
+            sname: argv.sname,
+            secret: argv.pass,
+            roles: (argv.admin ? ['user','admin'] : ['user'])
+        });
+    admin.save(function(err,saved) {
+        checkErr(err);
+        console.log('created',saved);
+        process.exit(0);
+    });
+});

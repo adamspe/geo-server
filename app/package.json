@@ -1,0 +1,27 @@
+{
+  "name": "app-base",
+  "version": "1.0.0",
+  "description": "angular library for a base application",
+  "author": "adamspe@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "angular": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-route": "1.5.x",
+    "angular-sanitize": "1.5.x",
+    "angular-ui-bootstrap": "2.1.x",
+    "bootstrap-sass": "3.3.x",
+    "font-awesome": "4.7.x",
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "1.x",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "1.x",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "2.x",
+    "grunt-contrib-watch": "1.x",
+    "grunt-html2js": "0.3.x",
+    "grunt-htmlhint": "0.9.x",
+    "jquery": "2.1.x",
+    "matchdep": "^1.0.1"
+  }
+}
