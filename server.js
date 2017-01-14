@@ -5,8 +5,6 @@ var argv = require('minimist')(process.argv.slice(2)),
     debug = require('debug')('app-base'),
     container = new AppContainer();
 
-console.dir(argv)
-
 container.init({
         pre: function(app) {
             debug('init pre');
