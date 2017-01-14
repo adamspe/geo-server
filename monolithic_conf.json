@@ -1,0 +1,20 @@
+{
+    "http": {
+        "bindAddr": "localhost",
+        "port": 8080
+    },
+    "database": {
+        "host": "localhost",
+        "port": 27017,
+        "db": "app-db",
+        "options": {}
+    },
+    "resources": {
+        "$apiRoot": "/api/v1/",
+        "user": {
+        }
+    },
+    "app-container-login": {
+        "logout": true
+    }
+}

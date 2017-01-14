@@ -9,7 +9,7 @@ html(lang='en')
     link(rel='stylesheet', href='/app/css/app-base.css')
 
     script(src='/app/app-base-3rdparty.min.js')
-    script(src='/app/app-base.min.js')
+    script(src=monolithic?'/app/app-base.js':'/app/app-base.min.js')
 
   body(ng-app="app-base")
     div.container

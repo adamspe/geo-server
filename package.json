@@ -6,7 +6,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "node --preserve-symlinks server.js",
+    "start": "node server.js",
+    "monolithic": "APP_CONTAINER_CONF=monolithic_conf.json node --preserve-symlinks server.js --monolithic",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,12 +20,13 @@
   "homepage": "https://github.com/adamspe/app-base#readme",
   "dependencies": {
     "app-container": "github:adamspe/app-container",
+    "app-container-conf": "github:adamspe/app-container-conf",
     "app-container-login": "github:adamspe/app-container-login",
     "connect-flash": "^0.1.1",
     "jade": "^1.11.0",
-    "user-resource-container": "github:adamspe/user-resource-container"
+    "minimist": "^1.2.0"
   },
   "devDependencies": {
-    "minimist": "^1.2.0"
+    "user-resource-container": "github:adamspe/user-resource-container"
   }
 }

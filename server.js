@@ -1,11 +1,13 @@
-var AppContainer = require('app-container'),
+var argv = require('minimist')(process.argv.slice(2)),
+    AppContainer = require('app-container'),
     express = require('express'),
     path = require('path'),
     debug = require('debug')('app-base'),
     container = new AppContainer();
 
+console.dir(argv)
+
 container.init({
-    initPipeline: {
         pre: function(app) {
             debug('init pre');
             app.set('views', path.join(__dirname, 'views'));
@@ -22,7 +24,10 @@ container.init({
             });
         },
         post_passport: function(app) {
-            require('user-resource-container').init(container);
+            if(argv.monolithic) {
+                debug('starting in monolithic mode, wiring in local services.');
+                require('user-resource-container').init(container);
+            }
             require('app-container-login').init(container,{logout: true});
         },
         post: function(app) {
@@ -35,7 +40,8 @@ container.init({
                 res.render('index',{
                     title: 'app-base',
                     user: req.user,
-                    session: req.session
+                    session: req.session,
+                    monolithic: (argv.monolithic ? true : false)
                 });
             });
 
@@ -55,7 +61,6 @@ container.init({
                 });
             });
         }
-    }
-});
+    });
 
 container.start();
