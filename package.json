@@ -22,11 +22,9 @@
     "app-container": "github:adamspe/app-container",
     "app-container-conf": "github:adamspe/app-container-conf",
     "app-container-login": "github:adamspe/app-container-login",
+    "user-resource-container": "github:adamspe/user-resource-container",
     "connect-flash": "^0.1.1",
     "jade": "^1.11.0",
     "minimist": "^1.2.0"
-  },
-  "devDependencies": {
-    "user-resource-container": "github:adamspe/user-resource-container"
   }
 }
