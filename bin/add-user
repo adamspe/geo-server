@@ -14,7 +14,7 @@ function checkErr(err) {
     }
 }
 
-AppContainer.db({},function(err){
+AppContainer.db(function(err){
     checkErr(err);
     var User = AppContainer.User,
         admin = new User({
