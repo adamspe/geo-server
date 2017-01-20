@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node  --preserve-symlinks
 var argv = require('minimist')(process.argv.slice(2)),
     AppContainer = require('app-container');
 
