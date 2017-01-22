@@ -2,7 +2,7 @@ FROM node:6.9
 
 COPY . /usr/service/
 WORKDIR /usr/service
-RUN apt-get update -qq && apt-get install -y ruby; \
+RUN apt-get update -q && apt-get install -y ruby; \
 gem install sass; \
 npm install --production; \
 cd app; \
