@@ -12,6 +12,10 @@
     "resources": {
         "$apiRoot": "/api/v1/",
         "user": {
+        },
+        "layer": {
+        },
+        "feature": {    
         }
     },
     "app-container-login": {

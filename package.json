@@ -1,5 +1,5 @@
 {
-  "name": "app-base",
+  "name": "geo-server",
   "version": "1.0.0",
   "description": "",
   "author": "adamspe@gmail.com",
@@ -22,9 +22,10 @@
     "app-container": "github:adamspe/app-container",
     "app-container-conf": "github:adamspe/app-container-conf",
     "app-container-login": "github:adamspe/app-container-login",
-    "user-resource-container": "github:adamspe/user-resource-container",
     "connect-flash": "^0.1.1",
+    "geo-resource-container": "github:adamspe/geo-resource-container",
     "jade": "^1.11.0",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "user-resource-container": "github:adamspe/user-resource-container"
   }
 }

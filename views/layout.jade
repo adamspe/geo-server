@@ -8,7 +8,8 @@ html(lang='en')
     title= title
     link(rel='stylesheet', href='/app/css/app-base.css')
 
-    script(src='/app/app-base-3rdparty.min.js')
+    script(src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js')
+    script(src='/app/app-base-3rdparty.js')
     script(src=monolithic?'/app/app-base.js':'/app/app-base.min.js')
 
   body(ng-app="app-base")

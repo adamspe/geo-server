@@ -50,6 +50,7 @@ module.exports = function(grunt){
                 src: [
                     '../node_modules/app-container/angular/dist/app-container-common.js',
                     '../node_modules/user-resource-container/angular/dist/app-container-user.js',
+                    '../node_modules/geo-resource-container/angular/dist/app-container-geo.js'
                 ], // list generated in build.
                 dest: '<%= dist %>/<%= filename %>.js'
             },
@@ -57,11 +58,14 @@ module.exports = function(grunt){
                 src: [
                     'node_modules/jquery/dist/jquery.js',
                     'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
+                    'node_modules/d3/build/d3.js',
                     'node_modules/angular/angular.js',
                     'node_modules/angular-resource/angular-resource.js',
                     'node_modules/angular-route/angular-route.js',
                     'node_modules/angular-sanitize/angular-sanitize.js',
-                    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js'
+                    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+                    'node_modules/angular-simple-logger/dist/angular-simple-logger.js',
+                    'node_modules/angular-google-maps/dist/angular-google-maps.js'
                 ],
                 dest: '<%= dist %>/<%= filename %>-3rdparty.js'
             }
@@ -112,7 +116,8 @@ module.exports = function(grunt){
             js: {
                 files: ['src/js/**/*.js',
                         '../node_modules/app-container/angular/dist/app-container-common.js',
-                        '../node_modules/user-resource-container/angular/dist/app-container-user.js'],
+                        '../node_modules/user-resource-container/angular/dist/app-container-user.js',
+                        '../node_modules/geo-resource-container/angular/dist/app-container-geo.js'],
                 tasks: ['jshint','after-test']
             },
             css: {
