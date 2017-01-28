@@ -50,6 +50,8 @@ module.exports = function(grunt){
                 src: [
                     '../node_modules/app-container/angular/dist/app-container-common.js',
                     '../node_modules/user-resource-container/angular/dist/app-container-user.js',
+                    '../node_modules/odata-resource-file/angular/odata-resource-file.js',
+                    '../node_modules/file-resource-container/angular/dist/app-container-file.js',
                     '../node_modules/geo-resource-container/angular/dist/app-container-geo.js'
                 ], // list generated in build.
                 dest: '<%= dist %>/<%= filename %>.js'
@@ -117,6 +119,8 @@ module.exports = function(grunt){
                 files: ['src/js/**/*.js',
                         '../node_modules/app-container/angular/dist/app-container-common.js',
                         '../node_modules/user-resource-container/angular/dist/app-container-user.js',
+                        '../node_modules/odata-resource-file/angular/odata-resource-file.js',
+                        '../node_modules/file-resource-container/angular/dist/app-container-file.js',
                         '../node_modules/geo-resource-container/angular/dist/app-container-geo.js'],
                 tasks: ['jshint','after-test']
             },

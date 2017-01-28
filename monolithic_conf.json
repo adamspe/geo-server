@@ -9,13 +9,28 @@
         "db": "app-db",
         "options": {}
     },
+    "tmp": "tmp/",
+    "forkWorkers": false,
     "resources": {
         "$apiRoot": "/api/v1/",
         "user": {
         },
         "layer": {
         },
-        "feature": {    
+        "feature": {
+        },
+        "file": {
+        },
+        "fileMeta": {
+        },
+        "image": {
+            "formats": [{
+                "format": "thumbnail",
+                "transformations":[{
+                    "fn": "cover",
+                    "args": [200,200]
+                }]
+            }]
         }
     },
     "app-container-login": {

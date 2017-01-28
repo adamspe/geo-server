@@ -23,6 +23,7 @@
     "app-container-conf": "github:adamspe/app-container-conf",
     "app-container-login": "github:adamspe/app-container-login",
     "connect-flash": "^0.1.1",
+    "file-resource-container": "github:adamspe/file-resource-container",
     "geo-resource-container": "github:adamspe/geo-resource-container",
     "jade": "^1.11.0",
     "minimist": "^1.2.0",

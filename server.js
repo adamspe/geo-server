@@ -25,6 +25,7 @@ container.init({
             if(argv.monolithic) {
                 debug('starting in monolithic mode, wiring in local services.');
                 require('user-resource-container').init(container);
+                require('file-resource-container').init(container);
                 require('geo-resource-container').init(container);
             }
             require('app-container-login').init(container,{logout: true});

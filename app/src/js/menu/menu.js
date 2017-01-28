@@ -13,6 +13,7 @@ angular.module('app-base.menu',[
     return {
         restrict: 'E',
         template: '<ul class="nav navbar-nav">'+
+        '<li ng-class="{active: active === \'/layer-admin\'}"><a href="#/layer-admin">Layer Admin</a></li>'+
         '<li ng-class="{active: active === \'/find-feature\'}"><a href="#/find-feature">Find feature</a></li>'+
         '</ul>',
         scope: {},

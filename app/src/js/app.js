@@ -11,6 +11,7 @@ angular.module('app-base',[
 .config(['$routeProvider','$httpProvider',function($routeProvider,$httpProvider){
     $routeProvider.when('/uadmin',{template:'<user-administration></user-administration>'});
     $routeProvider.when('/profile',{template:'<user-profile></user-profile>'});
+    $routeProvider.when('/layer-admin',{template:'<layer-admin></layer-admin>'});
     $routeProvider.when('/find-feature',{template:'<div class="find-feature"></div>'});
     $routeProvider.when('/map',{template:'<the-map></the-map>'});
     $routeProvider.otherwise({template:'<the-map></the-map>'});
