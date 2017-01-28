@@ -42,3 +42,13 @@ body.map {
         }
     }
 }
+
+input.ng-invalid {
+    border: 1px solid $state-danger-border;
+}
+
+*[uib-popover],
+*[uib-popover-template],
+*[ng-click] {
+    cursor: pointer;
+}
