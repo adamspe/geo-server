@@ -125,7 +125,11 @@ module.exports = function(grunt){
                 tasks: ['jshint','after-test']
             },
             css: {
-                files: ['src/css/*.scss'],
+                files: [
+                    'src/css/*.scss',
+                    '../node_modules/app-container/angular/src/css/*.scss',
+                    '../node_modules/geo-resource-container/angular/src/css/*.scss',
+                ],
                 tasks: ['after-test']
             }
         }

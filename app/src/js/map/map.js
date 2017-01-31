@@ -80,8 +80,8 @@ angular.module('geo-app.map',[
                 }
 
                 $scope.map = {
-                    center: { latitude: 32.808810, longitude: -96.794744 },
-                    zoom: 6,
+                    center: { latitude: 41.135760, longitude: -99.157679 },
+                    zoom: 4,
                     options: {
                         scrollwheel: false,
                         streetViewControl: false,
