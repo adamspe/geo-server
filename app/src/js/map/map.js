@@ -132,12 +132,7 @@ angular.module('geo-app.map',[
                     map.data.addListener('mouseout',function(event) {
                         map.data.revertStyle();
                     });
-                    map.data.addListener('click',function(event) {
-                        $scope.$apply(function(){
-                            $log.debug('feature click.');
-                            //DialogService.editObjectives(event.feature.getMapFeature());
-                        });
-                    });
+                    map.data.addListener('click',MapLayerService.featureClickProperties($scope,map));
                     var fid = InitMapService.getInitFeatureId();
                     if(fid) {
                         MapLayerService.getForFeature(fid).then(layerSetter(map));
