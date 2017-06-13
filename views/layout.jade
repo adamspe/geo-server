@@ -2,17 +2,14 @@ doctype html
 html(lang='en')
   head
     meta(charset='utf-8')
-    meta(name='viewport',content='width=device-width initial-scale=1')
     meta(http-equiv='X-UA-Compatible',content='IE=edge')
+    meta(name='viewport',content='initial-scale=1, maximum-scale=1, user-scalable=no')
 
     title= title
     link(rel='stylesheet', href='/app/css/app-base.css')
 
-    script(src='/app/app-base-3rdparty.min.js')
+    script(src=monolithic?'/app/app-base-3rdparty.js':'/app/app-base-3rdparty.min.js')
     script(src=monolithic?'/app/app-base.js':'/app/app-base.min.js')
 
   body(ng-app="app-base")
-    div.container
-        div.row
-            notification-area
-            block content
+    block content

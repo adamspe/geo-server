@@ -61,7 +61,12 @@ module.exports = function(grunt){
                     'node_modules/angular-resource/angular-resource.js',
                     'node_modules/angular-route/angular-route.js',
                     'node_modules/angular-sanitize/angular-sanitize.js',
-                    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js'
+                    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+
+                    'node_modules/angular-material/angular-material.js',
+                    'node_modules/angular-aria/angular-aria.js',
+                    'node_modules/angular-animate/angular-animate.js',
+                    'node_modules/angular-messages/angular-messages.js'
                 ],
                 dest: '<%= dist %>/<%= filename %>-3rdparty.js'
             }
@@ -107,17 +112,18 @@ module.exports = function(grunt){
         delta: {
             html: {
                 files: ['src/js/**/*.html'],
-                tasks: ['html2js', 'after-test']
+                tasks: ['html2js', 'build']
             },
             js: {
                 files: ['src/js/**/*.js',
                         '../node_modules/app-container/angular/dist/app-container-common.js',
                         '../node_modules/user-resource-container/angular/dist/app-container-user.js'],
-                tasks: ['jshint','after-test']
+                tasks: ['jshint','build']
             },
             css: {
-                files: ['src/css/*.scss'],
-                tasks: ['after-test']
+                files: ['src/css/*.scss',
+                        '../node_modules/user-resource-container/angular/src/css/_user.scss'],
+                tasks: ['sass']
             }
         }
     });
