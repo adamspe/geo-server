@@ -13,7 +13,6 @@ angular.module('app-base',[
     $routeProvider.when('/user-administration',{template:'<user-administration></user-administration>'});
     $routeProvider.when('/user-profile',{template:'<user-profile></user-profile>'});
     $routeProvider.when('/layer-admin',{template:'<layer-admin></layer-admin>'});
-    $routeProvider.when('/find-feature',{template:'<div class="find-feature"></div>'});
     $routeProvider.when('/map',{template:'<the-map></the-map>'});
     $routeProvider.otherwise({template:'<the-map></the-map>'});
 

@@ -119,6 +119,33 @@ md-sidenav[md-component-id="main-side-nav"] {
         }
     }
 }
+.find-feature-fab-wrapper {
+    border: 1px solid red;
+    position: absolute;
+    top: $icon-height + ($baseline-grid * 2);
+    z-index: 50;
+    &.open {
+        width: 100%;
+        md-toolbar {
+            width: 100%;
+            border: 1px solid green;
+        }
+        .md-button.md-fab .md-fab-toolbar-background {
+            display: inherit;
+        }
+    }
+    .md-button.md-fab {
+        @extend .md-icon-button;
+        @extend .md-raised;
+        margin-left: $baseline-grid;
+        font-size: $icon-size;
+        // odd but without this and the open rule above after toggling the menu once
+        // the icon within is obscured by the "background"
+        .md-fab-toolbar-background {
+            display: none;
+        }
+    }
+}
 .left-icon {
     @extend .md-icon-button;
     @extend .md-raised;
@@ -148,7 +175,17 @@ md-sidenav[md-component-id="main-side-nav"] {
         content: '\f0c9';
     }
 }
+#find-feature {
+    @extend .left-icon;
+    @extend .left-icon.two;
+    &:before {
+        content: '\f002';
+    }
+}
 .md-icon-button.close-dialog {
+    margin:0px;
+    background-color: transparent;
+
     &:before {
         font-family: 'FontAwesome';
         content: '\f00d';
@@ -159,3 +196,11 @@ md-toast.md-error-theme .md-toast-text {
     text-transform: uppercase;
 }
 @import '../../../node_modules/user-resource-container/angular/src/css/_user';
+
+
+.app-panel.find-feature-dialog {
+    min-width: 500px;
+    md-autocomplete {
+        margin-bottom: 10px;
+    }
+}

@@ -10,6 +10,9 @@ angular.module('geo-app.map',[
 .factory('InitMapService',['$location',function($location){
     var initFeatureId,
         service = {
+            setInitFeatureId: function(fid) {
+                initFeatureId = fid;
+            },
             getInitFeatureId: function() {
                 // one time deal;
                 var id = initFeatureId;
@@ -36,23 +39,42 @@ angular.module('geo-app.map',[
         }
     };
 }])
-.directive('findFeature',['$log','$typeAheadFinder','InitMapService','Layer','Feature',function($log,$typeAheadFinder,InitMapService,Layer,Feature){
+.controller('FindFeatureController',['$scope','$mdDialog','$typeAheadFinder','InitMapService','Layer','Feature',function($scope,$mdDialog,$typeAheadFinder,InitMapService,Layer,Feature){
+    $scope.findLayer = $typeAheadFinder(Layer,function(s){
+        return 'contains(name,\''+s+'\')';
+    });
+    $scope.findFeature = $typeAheadFinder(Feature,function(s){
+        var filter = '';
+        if($scope.selectedLayer) {
+            filter += '_layer eq \''+$scope.selectedLayer._id+'\' and ';
+        }
+        filter += 'contains(featureName,\''+s+'\')';
+        return {
+            $filter: filter,
+            $select: 'featureName'
+        };
+    });
+    $scope.$watch('selectedLayer',function(layer){
+        $scope.featureMinLength = layer ? 0 : 2;
+    });
+    $scope.cancel = $mdDialog.cancel;
+    $scope.ok = function() {
+        InitMapService.setInitFeatureId($scope.selectedFeature._id);
+        $mdDialog.hide();
+    };
+}])
+.directive('findFeature',['$mdDialog',function($mdDialog){
     return {
-        restrict: 'C',
-        templateUrl: 'js/map/find-feature.html',
+        restrict: 'E',
+        template: '<md-button id="find-feature" class="md-raised md-icon-button" ng-click="find()"><md-tooltip md-direction="right">Find feature</md-tooltip></md-button>',
         scope: {},
         link: function($scope) {
-            Layer.query({},function(response){
-                $scope.layers = response.list;
-            });
-            $scope.findFeature = $typeAheadFinder(Feature,function(s){
-                var filter = '';
-                if($scope.selectedLayer) {
-                    filter += '_layer eq \''+$scope.selectedLayer._id+'\' and ';
-                }
-                filter += 'contains(featureName,\''+s+'\')';
-                return filter;
-            });
+            $scope.find = function() {
+                $mdDialog.show({
+                    templateUrl: 'js/map/find-feature.html',
+                    controller: 'FindFeatureController'
+                }).then(angular.noop,angular.noop);
+            };
         }
     };
 }])
@@ -63,7 +85,7 @@ angular.module('geo-app.map',[
         '<ui-gmap-marker ng-if="marker" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">'+
         '</ui-gmap-marker>'+
         '</ui-gmap-google-map>'+
-        '<div class="feature-controls" ng-show="currentFeatures.length"></div></div>',
+        '<div class="feature-controls" ng-show="currentFeatures.length"></div><find-feature></find-feature></div>',
         scope: {},
         link: function($scope) {
             $('body').addClass('map');
@@ -79,6 +101,14 @@ angular.module('geo-app.map',[
                     };
                 }
 
+                function reset() {
+                    if($scope.currentMapLayer) {
+                        $scope.currentMapLayer.remove();
+                    }
+                    delete $scope.currentMapLayer;
+                    delete $scope.currentFeatures;
+                    delete $scope.marker;
+                }
                 $scope.map = {
                     center: { latitude: 41.135760, longitude: -99.157679 },
                     zoom: 4,
@@ -101,11 +131,7 @@ angular.module('geo-app.map',[
                                 lat = latLng.lat(),
                                 lng = latLng.lng(),i;
                             $log.debug('dblclick:['+lat+','+lng+']');
-                            if($scope.currentMapLayer) {
-                                $scope.currentMapLayer.remove();
-                            }
-                            delete $scope.currentMapLayer;
-                            delete $scope.currentFeatures;
+                            reset();
                             $scope.marker = {
                                 id: markerIndex++,
                                 coords: {
@@ -133,10 +159,14 @@ angular.module('geo-app.map',[
                         map.data.revertStyle();
                     });
                     map.data.addListener('click',MapLayerService.featureClickProperties($scope,map));
-                    var fid = InitMapService.getInitFeatureId();
-                    if(fid) {
-                        MapLayerService.getForFeature(fid).then(layerSetter(map));
-                    }
+                    $scope.$watch(function(){
+                        return InitMapService.getInitFeatureId();
+                    },function(fid){
+                        if(fid) {
+                            reset();
+                            MapLayerService.getForFeature(fid).then(layerSetter(map));
+                        }
+                    });
                 });
             });
         }

@@ -1,18 +1,39 @@
-<div class="solo-view">
-<div class="form-group">
-    <label for="selectedLayer">Layer</label>
-    <select name="selectedLayer" class="form-control" ng-model="selectedLayer" ng-options="l as l.name for l in layers">
-        <option value="">Layer</option>
-    </select>
-</div>
-<div class="form-group">
-    <label for="selectedFeature">Feature</label>
-    <input type="text" class="form-control" name="selectedFeature"
-           placeholder="Feature name"
-           ng-model="selectedFeature"
-           uib-typeahead="f as f.featureName for f in findFeature($viewValue)" />
-</div>
-<div ng-if="selectedFeature._id" class="clearfix">
-    <div class="pull-right"><go-to-feature feature="selectedFeature" label="Put it on the map"></go-to-feature></div>
-</div>
-</div>
+<section class="app-panel find-feature-dialog">
+    <md-toolbar class="md-toolbar-tools">
+        <h2 flex md-truncate>Find Feature</h2>
+        <md-button class="md-icon-button close-dialog" aria-label="Close dialog" ng-click="cancel()"></md-button>
+    </md-toolbar>
+    <md-content layout-padding>
+        <form name="findFeatureForm">
+            <div layout="column">
+                <md-autocomplete flex
+                    md-selected-item="selectedLayer"
+                    md-search-text="layerSearch"
+                    md-items="layer in findLayer(layerSearch)"
+                    md-item-text="layer.name"
+                    md-min-length="0"
+                    md-floating-label="Layer name?">
+                    <md-item-template>
+                        <span md-highlight-text="layerSearch">{{layer.name}}</span>
+                    </md-item-template>
+                </md-autocomplete>
+                <md-autocomplete flex required
+                    md-selected-item="selectedFeature"
+                    md-no-cache="true"
+                    md-search-text="featureSearch"
+                    md-items="feature in findFeature(featureSearch)"
+                    md-item-text="feature.featureName"
+                    md-min-length="featureMinLength"
+                    md-floating-label="Feature name?">
+                    <md-item-template>
+                        <span md-highlight-text="featureSearch">{{feature.featureName}}</span>
+                    </md-item-template>
+                </md-autocomplete>
+                <div layout="row" layout-align="end end">
+                    <md-button ng-click="cancel()">Cancel</md-button>
+                    <md-button class="md-primary" ng-click="ok()" ng-disabled="findFeatureForm.$invalid">OK</md-button>
+                </div>
+            </div>
+        </form>
+    </md-content>
+</section>

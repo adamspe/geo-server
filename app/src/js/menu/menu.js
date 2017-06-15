@@ -17,8 +17,7 @@ angular.module('app-base.menu',[
 .directive('mapMenu',['$log','$location',function($log,$location){
     return {
         restrict: 'E',
-        template: '<md-list-item><md-button class="md-primary" href="#!/layer-admin">Layer Admin</md-button></md-list-item>'+
-        '<md-list-item><md-button class="md-primary" href="#!/find-feature">Find Feature</md-button></md-list-item>',
+        template: '<md-list-item><md-button class="md-primary" href="#!/layer-admin">Layer Admin</md-button></md-list-item>',
         scope: {},
         link: function($scope) {
             $scope.$on('$locationChangeSuccess',function(event,url){
