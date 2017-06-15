@@ -1,23 +1,20 @@
-// variables
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+@import '../../node_modules/angular-material/angular-material.scss';
+@import '../../node_modules/angular-material/layouts/angular-material.layout-attributes.scss';
+@import '../../node_modules/angular-material/layouts/angular-material.layouts.scss';
 @import '../../node_modules/font-awesome/scss/font-awesome.scss';
+
+$screen-sm-min: 768px !default;
+$screen-md-min: 992px !default;
+$screen-lg-min: 1200px !default;
+
+$state-danger-bg:                #f2dede !default;
+$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+
 @import '../../../node_modules/app-container/angular/src/css/_panes.scss';
 @import '../../../node_modules/geo-resource-container/angular/src/css/_geo-resource-container.scss';
 
-.navbar {
-    // deprecated vendor prefix mixin
-    @include box-shadow(0px 5px 5px rgba(#aaa,0.5));
-}
-body {
-    padding-top: 60px;
-}
-#notification-area {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1100;
-}
-
+$icon-size: 25px;
+$icon-height: 40px;
 
 html, body {
     height:100%; width:100%;
@@ -25,9 +22,19 @@ html, body {
 body.map {
     overflow: hidden; // full screen map, no scrollbars
 }
+
+@mixin list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-unstyled {
+  @include list-unstyled;
+}
+
 .angular-google-map-container {
     position: absolute;
-    top: 50px;
+    top: 0px;
     left: 0px;
     width:100%;
     height:100%;
@@ -58,4 +65,99 @@ input.ng-invalid {
 *[uib-popover-template],
 *[ng-click] {
     cursor: pointer;
+    background-color: #eee;
 }
+.solo-view {
+    padding-top: $baseline-grid; //$icon-height + ($baseline-grid * 2);
+    padding-left: $icon-height + ($baseline-grid * 2);
+    padding-right: $baseline-grid;
+    @media(min-width: $layout-breakpoint-sm) {
+        padding-right: $icon-height + ($baseline-grid * 2);
+    }
+}
+.app-panel {
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    >md-content {
+        height: 100%;
+    }
+    >.md-toolbar-tools {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+}
+.md-dialog-fullscreen {
+    width: 80%;
+}
+md-card-title {
+    >h1,
+    >h2,
+    >h3,
+    >h4,
+    >h5,
+    >h6 {
+        margin: 0px;
+    }
+}
+md-sidenav[md-component-id="main-side-nav"] {
+    .md-icon-buton.home {
+        &:before {
+            font-family: 'FontAwesome';
+            content: '\f015';
+            font-size: $icon-size;
+        }
+        &:hover {
+            texts-decoration: none;
+        }
+    }
+    md-list-item {
+        padding: 0px;
+        .md-button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin: 0px;
+        }
+    }
+}
+.left-icon {
+    @extend .md-icon-button;
+    @extend .md-raised;
+    position: absolute;
+    margin: 0px !important;
+    left: $baseline-grid;
+    z-index: 50;
+    &:before {
+        font-family: 'FontAwesome';
+        font-size: $icon-size;
+    }
+    &:hover, &:focus {
+        border: none;
+        text-decoration: none;
+    }
+    &.one {
+        top: $baseline-grid;
+    }
+    &.two {
+        top: $icon-height + ($baseline-grid * 2);
+    }
+}
+#toggle-nav {
+    @extend .left-icon;
+    @extend .left-icon.one;
+    &:before {
+        content: '\f0c9';
+    }
+}
+.md-icon-button.close-dialog {
+    &:before {
+        font-family: 'FontAwesome';
+        content: '\f00d';
+        font-size: $icon-size;
+    }
+}
+md-toast.md-error-theme .md-toast-text {
+    text-transform: uppercase;
+}
+@import '../../../node_modules/user-resource-container/angular/src/css/_user';

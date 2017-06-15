@@ -59,15 +59,23 @@ module.exports = function(grunt){
             thirdParty: {
                 src: [
                     'node_modules/jquery/dist/jquery.js',
+
                     'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
+
                     'node_modules/d3/build/d3.js',
                     'node_modules/angular/angular.js',
                     'node_modules/angular-resource/angular-resource.js',
                     'node_modules/angular-route/angular-route.js',
                     'node_modules/angular-sanitize/angular-sanitize.js',
+
                     'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+
                     'node_modules/angular-simple-logger/dist/angular-simple-logger.js',
-                    'node_modules/angular-google-maps/dist/angular-google-maps.js'
+                    'node_modules/angular-google-maps/dist/angular-google-maps.js',
+                    'node_modules/angular-material/angular-material.js',
+                    'node_modules/angular-aria/angular-aria.js',
+                    'node_modules/angular-animate/angular-animate.js',
+                    'node_modules/angular-messages/angular-messages.js'
                 ],
                 dest: '<%= dist %>/<%= filename %>-3rdparty.js'
             }
@@ -113,24 +121,25 @@ module.exports = function(grunt){
         delta: {
             html: {
                 files: ['src/js/**/*.html'],
-                tasks: ['html2js', 'after-test']
+                tasks: ['html2js', 'build']
             },
             js: {
                 files: ['src/js/**/*.js',
                         '../node_modules/app-container/angular/dist/app-container-common.js',
                         '../node_modules/user-resource-container/angular/dist/app-container-user.js',
+                        '../node_modules/user-resource-container/angular/dist/app-container-user.js',
                         '../node_modules/odata-resource-file/angular/odata-resource-file.js',
                         '../node_modules/file-resource-container/angular/dist/app-container-file.js',
                         '../node_modules/geo-resource-container/angular/dist/app-container-geo.js'],
-                tasks: ['jshint','after-test']
+                tasks: ['jshint','build']
             },
             css: {
                 files: [
                     'src/css/*.scss',
                     '../node_modules/app-container/angular/src/css/*.scss',
                     '../node_modules/geo-resource-container/angular/src/css/*.scss',
-                ],
-                tasks: ['after-test']
+                    '../node_modules/user-resource-container/angular/src/css/*.scss'],
+                tasks: ['sass']
             }
         }
     });

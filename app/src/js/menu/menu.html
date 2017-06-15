@@ -1,12 +1,19 @@
-<ul class="nav navbar-nav">
-    <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{me | fullName}} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#/profile">Profile</a></li>
-            <li ng-if="me.isAdmin()" role="separator" class="divider"></li>
-            <li ng-if="me.isAdmin()"><a href="#/uadmin">User Administration</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/logout">Log out</a></li>
-          </ul>
-    </li>
-</ul>
+<md-button id="toggle-nav" class="md-raised md-icon-button" ng-click="toggle()" aria-label="Toggle main menu">
+    <md-tooltip md-direction="right">Expand menu</md-tooltip>
+</md-button>
+<md-sidenav md-component-id="main-side-nav" class="md-sidenav-left" md-whiteframe="4">
+    <md-toolbar class="md-toolbar-tools">
+        <md-button href="/" class="md-icon-buton home" aria-label="Home"></md-button>
+        <h2 flex md-truncate>Welcome {{me.fname}}</h2>
+    </md-toolbar>
+    <md-content>
+        <md-list>
+            <md-list-item><md-button class="md-primary" href="#!/user-profile">Profile</md-button></md-list-item>
+            <md-list-item ng-if="me.isAdmin()"><md-button href="#!/user-administration">User Administration</md-button></md-list-item>
+            <md-divider></md-divider>
+            <map-menu></map-menu>
+            <md-divider></md-divider>
+            <md-list-item><md-button class="md-accent" href="/logout">Log out</md-button></md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>

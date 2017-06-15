@@ -18,7 +18,7 @@ container.init({
             app.get('/login',function(req, res) {
               var messages = req.flash();
               debug('flash',messages);
-              res.render('login', { title: 'Login', messages: messages });
+              res.render('login', { title: 'Login', messages: messages, monolithic: (argv.monolithic ? true : false) });
             });
         },
         post_passport: function(app) {

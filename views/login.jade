@@ -1,21 +1,25 @@
 extends layout
 
 block content
-
-    div.col-xs-12.col-sm-10.col-md-8.col-lg-4
-
-        if messages && messages.error
-            p.text-danger= messages.error[0]
-
-        div.login.well.clearfix
-            form(name='login',action='/login',method='post')
-                div.form-group
-                    label(for='username').
-                        E-mail
-                    input.form-control(type='text',id='username',name='username',placeholder='E-mail')
-                div.form-group
-                    label(for='password').
-                        Password
-                    input.form-control(type='password',id='password',name='password',placeholder='Password')
-                input(class='btn btn-default pull-right',type='submit',value='Login')
-
+    div.solo-view
+        md-card
+            md-card-title
+                md-card-title-text
+                    h1.
+                        Login
+            md-card-content
+                form(name='login',action='/login',method='post')
+                    div(layout="column")
+                        if messages && messages.error
+                            show-toast(toast='#{messages.error[0]}',toast-theme='default-warn')
+                        md-input-container
+                            label.
+                                E-mail
+                            input(name='username')
+                        md-input-container
+                            label.
+                                Pasword
+                            input(name='password',type='password')
+                        div(layout="column" layout-align="center end")
+                            md-button(class="md-primary",type="submit").
+                                Login
