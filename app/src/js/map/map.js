@@ -152,12 +152,12 @@ angular.module('geo-app.map',[
 .directive('featureControls',[function(){
     return {
         restrict: 'C',
-        template: '<ul class="list-unstyled">'+
-        '<li ng-repeat="f in currentFeatures"><div class="checkbox"><label>'+
-        '<input type="checkbox" ng-model="f.$controlIsOn" ng-change="toggleFeature(f)"/> '+
-        '{{f | mapFeatureLabel}}'+
-        '</label> <a href ng-click="f.fit()"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></div></li>'+
-        '</ul>',
+        template:'<div layout="column">'+
+        '<div layout="row" ng-repeat="f in currentFeatures">'+
+        '<md-checkbox ng-model="f.$controlIsOn" ng-change="toggleFeature(f)">{{f | mapFeatureLabel}}</md-checkbox>'+
+        ' <a class="fit-bounds" href ng-click="f.fit()"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a>'+
+        '</div>'+
+        '</div>',
         link: function($scope) {
             $scope.$watch('currentFeatures',function(features) {
                 (features||[]).forEach(function(f){

@@ -1,3 +1,4 @@
+<div class="solo-view">
 <div class="form-group">
     <label for="selectedLayer">Layer</label>
     <select name="selectedLayer" class="form-control" ng-model="selectedLayer" ng-options="l as l.name for l in layers">
@@ -13,4 +14,5 @@
 </div>
 <div ng-if="selectedFeature._id" class="clearfix">
     <div class="pull-right"><go-to-feature feature="selectedFeature" label="Put it on the map"></go-to-feature></div>
+</div>
 </div>
