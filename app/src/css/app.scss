@@ -63,7 +63,7 @@ input.ng-invalid {
 *[uib-popover-template],
 *[ng-click] {
     cursor: pointer;
-    background-color: #eee;
+    //background-color: #eee;
 }
 .solo-view {
     padding-top: $baseline-grid; //$icon-height + ($baseline-grid * 2);
@@ -87,6 +87,11 @@ input.ng-invalid {
 }
 .md-dialog-fullscreen {
     width: 80%;
+    >.app-panel >md-content {
+        @media(min-width:$screen-sm-min) {
+            max-height: 700px;
+        }
+    }
 }
 md-card-title {
     >h1,

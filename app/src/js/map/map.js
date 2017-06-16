@@ -26,19 +26,6 @@ angular.module('geo-app.map',[
         };
     return service;
 }])
-.directive('goToFeature',['InitMapService',function(InitMapService){
-    return {
-        restrict: 'E',
-        template: '<a href ng-click="goToFeature(feature._id)"><span ng-if="label">{{label}} </span><i class="fa fa-map-o" aria-hidden="true"></i></a>',
-        scope: {
-            feature: '=',
-            label: '@'
-        },
-        link: function($scope) {
-            $scope.goToFeature = InitMapService.goToFeature;
-        }
-    };
-}])
 .controller('FindFeatureController',['$scope','$mdDialog','$typeAheadFinder','InitMapService','Layer','Feature',function($scope,$mdDialog,$typeAheadFinder,InitMapService,Layer,Feature){
     $scope.findLayer = $typeAheadFinder(Layer,function(s){
         return 'contains(name,\''+s+'\')';
@@ -51,7 +38,7 @@ angular.module('geo-app.map',[
         filter += 'contains(featureName,\''+s+'\')';
         return {
             $filter: filter,
-            $select: 'featureName'
+            $select: 'featureName _layer'
         };
     });
     $scope.$watch('selectedLayer',function(layer){
@@ -78,16 +65,23 @@ angular.module('geo-app.map',[
         }
     };
 }])
-.directive('theMap',['$log','uiGmapGoogleMapApi','uiGmapIsReady','InitMapService','MapLayerService','DialogService',function($log,uiGmapGoogleMapApi,uiGmapIsReady,InitMapService,MapLayerService,DialogService){
+.directive('theMap',['$log','uiGmapGoogleMapApi','uiGmapIsReady','InitMapService','MapLayerService','DialogService','User',function($log,uiGmapGoogleMapApi,uiGmapIsReady,InitMapService,MapLayerService,DialogService,User){
     return {
         restrict: 'E',
         template:'<div class="the-map"><ui-gmap-google-map ng-if="map" center="map.center" zoom="map.zoom" options="map.options" events="map.events">'+
         '<ui-gmap-marker ng-if="marker" coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">'+
         '</ui-gmap-marker>'+
         '</ui-gmap-google-map>'+
-        '<div class="feature-controls" ng-show="currentFeatures.length"></div><find-feature></find-feature></div>',
+        '<div class="feature-controls" ng-show="currentFeatures.length"></div>'+
+        '<find-feature ng-if="!adminModeEnabled"></find-feature>'+
+        '<map-layer-administration ng-if="me.isAdmin()" admin-mode-change="reset(mode)"></map-layer-administration>'+
+        '</div>',
         scope: {},
         link: function($scope) {
+            User.me().$promise.then(function(me) {
+                $scope.me = me;
+            });
+            $scope.mode = { admin: false };
             $('body').addClass('map');
             $scope.$on('$destroy',function(){
                 $('body').removeClass('map');
@@ -100,8 +94,9 @@ angular.module('geo-app.map',[
                         $scope.currentFeatures = layer.features();
                     };
                 }
-
-                function reset() {
+                function reset(mode) {
+                    $log.debug('reset: mode',mode);
+                    $scope.adminModeEnabled = mode;
                     if($scope.currentMapLayer) {
                         $scope.currentMapLayer.remove();
                     }
@@ -109,6 +104,7 @@ angular.module('geo-app.map',[
                     delete $scope.currentFeatures;
                     delete $scope.marker;
                 }
+                $scope.reset = reset;
                 $scope.map = {
                     center: { latitude: 41.135760, longitude: -99.157679 },
                     zoom: 4,

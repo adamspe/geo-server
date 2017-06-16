@@ -27,6 +27,7 @@
                     md-floating-label="Feature name?">
                     <md-item-template>
                         <span md-highlight-text="featureSearch">{{feature.featureName}}</span>
+                        <span ng-if="!selectedLayer"> ({{feature._layer.name}})</span>
                     </md-item-template>
                 </md-autocomplete>
                 <div layout="row" layout-align="end end">

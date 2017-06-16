@@ -13,16 +13,4 @@ angular.module('app-base.menu',[
             });
         }
     };
-}])
-.directive('mapMenu',['$log','$location',function($log,$location){
-    return {
-        restrict: 'E',
-        template: '<md-list-item><md-button class="md-primary" href="#!/layer-admin">Layer Admin</md-button></md-list-item>',
-        scope: {},
-        link: function($scope) {
-            $scope.$on('$locationChangeSuccess',function(event,url){
-                $scope.active = $location.path();
-            });
-        }
-    };
 }]);
