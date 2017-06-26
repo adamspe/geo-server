@@ -97,6 +97,10 @@ angular.module('geo-app.map',[
                 function reset(mode) {
                     $log.debug('reset: mode',mode);
                     $scope.adminModeEnabled = mode;
+                    // enable/disable the double click event handler based on the administrative mode.
+                    if($scope.map && $scope.map.events) {
+                        $scope.map.events.dblclick = !mode ? dblclick : undefined;
+                    }
                     if($scope.currentMapLayer) {
                         $scope.currentMapLayer.remove();
                     }
@@ -104,7 +108,29 @@ angular.module('geo-app.map',[
                     delete $scope.currentFeatures;
                     delete $scope.marker;
                 }
+                function dblclick(map,eventName,args) {
+                    var latLng = args[0].latLng,
+                        lat = latLng.lat(),
+                        lng = latLng.lng(),i;
+                    $log.debug('dblclick:['+lat+','+lng+']');
+                    reset();
+                    $scope.marker = {
+                        id: markerIndex++,
+                        coords: {
+                            latitude: lat,
+                            longitude: lng
+                        },
+                        events: {
+                            'click': function(/*marker,eventName,model,args*/) {
+                                $log.debug('marker click');
+                            }
+                        }
+                    };
+                    $scope.featureProperties = [];
+                    MapLayerService.getForPoint(lat,lng).then(layerSetter(map));
+                }
                 $scope.reset = reset;
+                $scope.removeLayer = function() { reset($scope.adminModeEnabled); };
                 $scope.map = {
                     center: { latitude: 41.135760, longitude: -99.157679 },
                     zoom: 4,
@@ -122,28 +148,7 @@ angular.module('geo-app.map',[
                         }
                     },
                     events : {
-                        dblclick: function(map,eventName,args) {
-                            var latLng = args[0].latLng,
-                                lat = latLng.lat(),
-                                lng = latLng.lng(),i;
-                            $log.debug('dblclick:['+lat+','+lng+']');
-                            reset();
-                            $scope.marker = {
-                                id: markerIndex++,
-                                coords: {
-                                    latitude: lat,
-                                    longitude: lng
-                                },
-                                events: {
-                                    'click': function(/*marker,eventName,model,args*/) {
-                                        $log.debug('marker click');
-                                        //DialogService.buildConservationPlan($scope.currentMapLayer);
-                                    }
-                                }
-                            };
-                            $scope.featureProperties = [];
-                            MapLayerService.getForPoint(lat,lng).then(layerSetter(map));
-                        }
+                        dblclick: dblclick
                     }
                 };
                 uiGmapIsReady.promise(1).then(function(instances){
@@ -183,6 +188,7 @@ angular.module('geo-app.map',[
         '<md-checkbox ng-model="f.$controlIsOn" ng-change="toggleFeature(f)">{{f | mapFeatureLabel}}</md-checkbox>'+
         ' <a class="fit-bounds" href ng-click="f.fit()"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a>'+
         '</div>'+
+        '<div layout="row" layout-align="end end"><md-button class="md-icon-button" ng-click="removeLayer()"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></md-button></div>'+
         '</div>',
         link: function($scope) {
             $scope.$watch('currentFeatures',function(features) {
